@@ -2,18 +2,24 @@ package dk.easv.mrs.GUI.Controller;
 
 import dk.easv.mrs.BE.Movie;
 import dk.easv.mrs.GUI.Model.MovieModel;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MovieViewController implements Initializable {
 
 
-    public TextField txtMovieSearch;
+    @FXML
+    private TextField txtMovieSearch, txtMovieYear, txtMovieTitle;
+
     public ListView<Movie> lstMovies;
+
     private MovieModel movieModel;
 
     public MovieViewController()  {
@@ -49,5 +55,18 @@ public class MovieViewController implements Initializable {
         alert.setTitle("Something went wrong");
         alert.setHeaderText(t.getMessage());
         alert.showAndWait();
+    }
+
+    public Movie btnHandleClick(ActionEvent actionEvent) throws Exception {
+
+        // get user movie data from UI
+        String title = txtMovieTitle.getText();
+        int year = Integer.parseInt(txtMovieYear.getText());
+
+        // new movie object
+        Movie newMovie = new Movie(-1, year, title);
+
+        // call model to create the movie in the dal
+        return movieModel.createMovie(newMovie);
     }
 }

@@ -5,7 +5,12 @@ import java.util.List;
 
 public class MovieSearcher {
 
-
+    /**
+     *
+     * @param searchBase
+     * @param query
+     * @return
+     */
     public List<Movie> search(List<Movie> searchBase, String query) {
         List<Movie> searchResult = new ArrayList<>();
 
